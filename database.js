@@ -1,10 +1,11 @@
 var mysql = require('mysql')
 
+
 var connection = mysql.createConnection({
-    host: 'x8autxobia7sgh74.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'hdgl401zizqq5hg6',
-    password: 'ia65yqgw5davzt2y',
-    database: 'fzx737civ5160j4p',
+    host: 'us-cdbr-east-04.cleardb.com',
+    user: 'b4a5db242afb3a',
+    password: 'ae5332e0',
+    database: 'heroku_b21591b79ad0d5b',
     port: 3306
 })
 
@@ -27,7 +28,7 @@ var closeDB = function () {
 }
 
 exports.getAllUser = function (callbackQuery) {
-    connect()
+    // connect()
     connection.query('select * from user', function (err, results, fileds) {
         if (!err) {
             callbackQuery(results)
@@ -38,7 +39,7 @@ exports.getAllUser = function (callbackQuery) {
 }
 
 exports.getRoomByUserId = function (id, callbackQuery) {
-    connect()
+    // connect()
     connection.query('select * from room inner join user on room.owner_id = user.id and user.id = ' + id, function (err, results, fileds) {
         if (!err) {
             const rs = results.map(element => {
@@ -53,7 +54,7 @@ exports.getRoomByUserId = function (id, callbackQuery) {
 }
 
 exports.getRoomDetailByRoomId = function (id, callbackQuery) {
-    connect()
+    // connect()
     connection.query('select room_detail.id, room_id, room_detail.user_id, user.full_name, comment from room_detail left join user on room_detail.user_id = user.id where room_detail.room_id = ' + id, function (err, results, fileds) {
         if (!err) {
             const rs = results.map(element => {
@@ -66,4 +67,3 @@ exports.getRoomDetailByRoomId = function (id, callbackQuery) {
         }
     })
 }
-// [{"id":3,"room_id":2, "user": {"full_name":"anh.nguyen"},"comment":"Good morning!"}]
