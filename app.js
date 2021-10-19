@@ -7,9 +7,9 @@ const app = express()
 // khoi dong express middleware
 app.use(express.json())
 
-const port = process.env.port || 5000
+// const port = process.env.port || 5000
 
-app.listen(port, () => console.log(`Server hoat dong ${port}`))
+// app.listen(port, () => console.log(`Server hoat dong ${port}`))
 
 app.get('/', function (req, res) {
     res.send('Day la router')
