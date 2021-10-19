@@ -22,7 +22,7 @@ app.get('/users', function (req, res) {
 })
 
 app.get('/rooms', function (req, res) {
-    database.getRoomByUserId(1, function (resultQuery) {
+    database.getRoomByUserId(5, function (resultQuery) {
         res.json(resultQuery)
     })
 })

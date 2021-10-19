@@ -28,7 +28,7 @@ var closeDB = function () {
 }
 
 exports.getAllUser = function (callbackQuery) {
-    connect()
+    // connect()
     connection.query('select * from user', function (err, results, fileds) {
         if (!err) {
             callbackQuery(results)
@@ -39,12 +39,12 @@ exports.getAllUser = function (callbackQuery) {
 }
 
 exports.getRoomByUserId = function (id, callbackQuery) {
-    connect()
-    connection.query('select * from room inner join user on room.owner_id = user.id and user.id = ' + id, function (err, results, fileds) {
+    // connect()
+    connection.query(' select room.id as room_id, room.created_at, room.updated_at, user.* from room inner join user on room.owner_id = user.id and user.id = ' + id, function (err, results, fileds) {
         if (!err) {
             const rs = results.map(element => {
                 var user = { id: element.id, full_name: element.full_name }
-                return { id: element.id, created_at: element.created_at, updated_at: element.updated_at, owner: user }
+                return { id: element.room_id, created_at: element.created_at, updated_at: element.updated_at, owner: user }
             })
             callbackQuery(rs)
         } {
@@ -54,7 +54,7 @@ exports.getRoomByUserId = function (id, callbackQuery) {
 }
 
 exports.getRoomDetailByRoomId = function (id, callbackQuery) {
-    connect()
+    // connect()
     connection.query('select room_detail.id, room_id, room_detail.user_id, user.full_name, comment from room_detail left join user on room_detail.user_id = user.id where room_detail.room_id = ' + id, function (err, results, fileds) {
         if (!err) {
             const rs = results.map(element => {

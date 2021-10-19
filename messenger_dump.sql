@@ -5,7 +5,7 @@ insert into user(full_name, email, is_active) values ('hai.nguyen', 'hai@gmail.c
 
 
 
-insert into room(owner_id) values (1), (2), (2), (1), (1);
+insert into room(owner_id) values (5), (15), (15), (5), (5);
 
-insert into room_detail(room_id, user_id, comment) values (1, 1, 'Hello every one'), 
-(1, 2, 'Hello world!'), (2, 3, 'Good morning!'), (3, 4, 'Xin chao'), (4, 5, 'Share and subscribe');
+insert into room_detail(room_id, user_id, comment) values (105, 5, 'Hello every one'), 
+(105, 15, 'Hello world!'), (125, 25, 'Good morning!'), (125, 35, 'Xin chao'), (135, 45, 'Share and subscribe');
