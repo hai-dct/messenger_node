@@ -11,6 +11,10 @@ const port = process.env.port || 5000
 
 app.listen(port, () => console.log(`Server hoat dong ${port}`))
 
+app.get('/', function (req, res) {
+    res.send('Day la router')
+})
+
 app.get('/users', function (req, res) {
     database.getAllUser(function (resultQuery) {
         res.json(resultQuery)
