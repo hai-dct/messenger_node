@@ -1,6 +1,7 @@
 const express = require('express')
-const database = require('./database')
-
+const User = require('./model/user')
+const Room = require('./model/room')
+const Comment = require('./model/comment')
 
 
 // khoi dong app
@@ -19,33 +20,33 @@ app.get('/', function (req, res) {
 
 app.post('/users/login', async function (req, res) {
     const { email, password } = req.body
-    database.findUserByUserNameAndPW(email, password,
+    User.login(email, password,
         function (resultQuery) {
             res.status(resultQuery.status).json(resultQuery)
         })
 })
 
 app.get('/users', function (req, res) {
-    database.getAllUser(function (resultQuery) {
+    User.all(function (resultQuery) {
         res.json(resultQuery)
     })
 })
 
 app.get('/rooms', function (req, res) {
-    database.getRoomByUserId(5, function (resultQuery) {
+    Room.list(5, function (resultQuery) {
         res.json(resultQuery)
     })
 })
 
 app.get('/rooms/:id', function (req, res) {
-    database.getRoomDetailByRoomId(req.params.id, function (resultQuery) {
+    Room.detail(req.params.id, function (resultQuery) {
         res.json(resultQuery)
     })
 })
 
 app.post('/comments/post', function (req, res) {
     const { room_id, comment } = req.body
-    database.createComment(room_id, 5, comment, function (resultQuery) {
+    Comment.post(room_id, 5, comment, function (resultQuery) {
         res.json(resultQuery)
     })
 })
