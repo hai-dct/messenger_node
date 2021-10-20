@@ -32,7 +32,7 @@ exports.findUserByUserNameAndPW = function (email, password, callbackQuery) {
         if (!err) {
             if (results.length > 0) {
                 if (results[0].password == password) {
-                    callbackQuery(results[0])
+                    callbackQuery({status: 200, data: results[0]})
                 } else {
                     callbackQuery({ status: 400, message: 'Wrong password' })
                 }
@@ -49,7 +49,7 @@ exports.getAllUser = function (callbackQuery) {
     // connect()
     connection.query('select * from user', function (err, results, fileds) {
         if (!err) {
-            callbackQuery(results)
+            callbackQuery({status: 200, data: results})
         } {
             console.log(err)
         }
@@ -70,7 +70,7 @@ exports.getRoomByUserId = function (id, callbackQuery) {
                     last_message: element.last_message
                 }
             })
-            callbackQuery(rs)
+            callbackQuery({status: 200, data: rs})
         } {
             console.log(err)
         }
@@ -85,7 +85,7 @@ exports.getRoomDetailByRoomId = function (id, callbackQuery) {
                 var user = { id: element.user_id, full_name: element.full_name, avatar_url: element.avatar_url }
                 return { comment: element.comment, user, created_at: element.created_at, updated_at: element.updated_at }
             })
-            callbackQuery({ id: results[0].id, room_id: results[0].room_id, comments: rs })
+            callbackQuery({status: 200, data: { id: results[0].id, room_id: results[0].room_id, comments: rs }})
         } {
             console.error(err)
         }
@@ -101,7 +101,7 @@ exports.createComment = function (room_id, user_id, comment, callbackQuery) {
                 connection.query('call UpdateLastMessage(' + room_id + ', \'' + comment + '\')',
                     function (err, results, fileds) {
                         if (!err) {
-                            callbackQuery()
+                            callbackQuery({status: 200})
                         } {
                             console.error(err)
                         }
