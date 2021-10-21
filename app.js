@@ -4,7 +4,6 @@ const Room = require('./models/room')
 const Comment = require('./models/comment')
 const auth = require('./middleware/auth')
 const jwt = require('jsonwebtoken')
-require("dotenv").config();
 
 // khoi dong app
 const app = express()
@@ -13,7 +12,6 @@ const app = express()
 app.use(express.json())
 
 app.use(async function (req, res, next) {
-
     if (req.headers && req.headers.authorization) {
 
     } else {
