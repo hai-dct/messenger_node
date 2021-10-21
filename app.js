@@ -4,6 +4,7 @@ const Room = require('./models/room')
 const Comment = require('./models/comment')
 const auth = require('./middleware/auth')
 const jwt = require('jsonwebtoken')
+require("dotenv").config();
 
 // khoi dong app
 const app = express()
