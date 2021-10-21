@@ -10,13 +10,13 @@ const Comment = {
                             if (!err) {
                                 callbackQuery({ status: 200 })
                             } {
-                                console.error(err)
+                                callbackQuery({ status: 500, message: err })
                             }
                         }
                     )
 
                 } {
-                    console.error(err)
+                    callbackQuery({ status: 500, message: err })
                 }
             }
         )

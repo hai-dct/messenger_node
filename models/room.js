@@ -16,7 +16,7 @@ const Room = {
                 })
                 callbackQuery({ status: 200, data: rs })
             } {
-                console.log(err)
+                callbackQuery({ status: 500, message: err })
             }
         })
     },
@@ -34,7 +34,7 @@ const Room = {
                     callbackQuery({ status: 404 })
                 }
             } {
-                console.error(err)
+                callbackQuery({ status: 500, message: err })
             }
         })
     }
