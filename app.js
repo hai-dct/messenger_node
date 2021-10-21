@@ -24,7 +24,7 @@ app.use(async function (req, res, next) {
     const token = req.header('Authorization').replace('Bearer ', '')
     try {
         if (!token) throw new Error()
-        const data = await jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const data = await jwt.verify(token, ${process.env.JWT_SECRET_KEY})
         const user = await User.token(data.id, token)
 
         req.user = user

@@ -8,7 +8,7 @@ const User = {
         if (results.length > 0) {
             if (results[0].password == password) {
                 const user = results[0]
-                const token = await jwt.sign({ email: user.email, fullName: user.full_name, id: user.id }, process.env.JWT_KEY)
+                const token = await jwt.sign({ email: user.email, fullName: user.full_name, id: user.id }, ${process.env.JWT_SECRET_KEY})
                 user.token = token
                 await updateToken(user, token)
                 return user
