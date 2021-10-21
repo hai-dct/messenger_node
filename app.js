@@ -1,10 +1,10 @@
 const express = require('express')
-require("dotenv").config();
 const User = require('./models/user')
 const Room = require('./models/room')
 const Comment = require('./models/comment')
 const auth = require('./middleware/auth')
 const jwt = require('jsonwebtoken')
+require("dotenv").config();
 
 // khoi dong app
 const app = express()
@@ -24,7 +24,7 @@ app.use(async function (req, res, next) {
     const token = req.header('Authorization').replace('Bearer ', '')
     try {
         if (!token) throw new Error()
-        const data = await jwt.verify(token, ${process.env.JWT_SECRET_KEY})
+        const data = await jwt.verify(token, '' + process.env.JWT_KEY)
         const user = await User.token(data.id, token)
 
         req.user = user
