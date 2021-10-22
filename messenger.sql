@@ -39,6 +39,16 @@ foreign key (`room_id`) references `room` (`id`),
 foreign key (`user_id`) references `user` (`id`) 
 );
 
+DROP table IF EXISTS `stories`;
+create table if not exists `stories` (
+id int(11) primary key AUTO_INCREMENT,
+user_id int(11),
+image_url varchar(255),
+created_at timestamp default now(),
+updated_at timestamp default now(),
+foreign key (`user_id`) references `user` (`id`) 
+);
+
 DROP PROCEDURE IF EXISTS createComment;
 DELIMITER $$
 Create procedure createComment(room_id int, user_id int, newComment text)
@@ -48,6 +58,14 @@ Create procedure createComment(room_id int, user_id int, newComment text)
 	End; $$
 DELIMITER;
 
+DROP PROCEDURE IF EXISTS createStory;
+DELIMITER $$
+Create procedure createStory(user_id int, image_url varchar(255))
+	Begin
+		insert into stories(user_id, image_url) 
+		values (user_id, image_url);
+	End; $$
+DELIMITER;
 
 DROP PROCEDURE IF EXISTS UpdateLastMessage;
 DELIMITER $$
@@ -78,5 +96,8 @@ ALTER TABLE user ADD COLUMN avatar_url varchar(255) after email;
 
 ALTER TABLE user ADD COLUMN token varchar(255) after password;
 
-Update user Set avatar_url='https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-9/81216473_1249494571908479_4376391655364755456_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=o39UauENucsAX_RSOQi&tn=BWMfM16Xz_QypOR_&_nc_ht=scontent.fsgn2-1.fna&oh=c7f4877369dd760c74a0cee80b3023ae&oe=61940E68' Where id = 5;
-Update user Set avatar_url='https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/173971208_3667585750013438_2786286715912815545_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=yZvBBWv2Lu8AX9HkocA&_nc_ht=scontent.fsgn2-4.fna&oh=3a1711c07b21575d95d81d195dfff5fe&oe=61970815' Where id = 45;
+Update user Set avatar_url='https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg' Where id = 5;
+Update user Set avatar_url='https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg' Where id = 15;
+Update user Set avatar_url='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC2yLsax2357l_Sli3jpe-kg1mdyJV9A3JjA&usqp=CAU' Where id = 25;
+Update user Set avatar_url='https://media.istockphoto.com/photos/colored-powder-explosion-on-black-background-picture-id1057506940?k=20&m=1057506940&s=612x612&w=0&h=3j5EA6YFVg3q-laNqTGtLxfCKVR3_o6gcVZZseNaWGk=' Where id = 35;
+Update user Set avatar_url='https://static.addtoany.com/images/dracaena-cinnabari.jpg' Where id = 35;

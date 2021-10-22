@@ -1,5 +1,4 @@
 const express = require('express')
-require("dotenv").config();
 const User = require('./models/user')
 const Room = require('./models/room')
 const Comment = require('./models/comment')
@@ -13,7 +12,6 @@ const app = express()
 app.use(express.json())
 
 app.use(async function (req, res, next) {
-
     if (req.headers && req.headers.authorization) {
 
     } else {
@@ -21,10 +19,10 @@ app.use(async function (req, res, next) {
         return
     }
 
-    const token = req.header('Authorization').replace('Bearer ', '')
+    const token = req.header('Authorization').replace('Bearer ', '').replace('Bearer ', '')
     try {
         if (!token) throw new Error()
-        const data = await jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const data = await jwt.verify(token, '' + process.env.JWT_KEY)
         const user = await User.token(data.id, token)
 
         req.user = user
@@ -59,6 +57,15 @@ app.get('/users', auth, async function (req, res) {
     try {
         const users = await User.all()
         res.status(200).json({ status: 200, data: users })
+    } catch (err) {
+        res.status(500).json({ status: 500, message: err.toString() })
+    }
+})
+
+app.get('/users/stories', auth, async function (req, res) {
+    try {
+        const stories = await User.stories()
+        res.status(200).json({ status: 200, data: stories })
     } catch (err) {
         res.status(500).json({ status: 500, message: err.toString() })
     }
