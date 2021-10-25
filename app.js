@@ -62,6 +62,16 @@ app.get('/users', auth, async function (req, res) {
     }
 })
 
+app.get('/users/search', auth, async function (req, res) {
+    const qr = req.query.query
+    try {
+        const users = await User.search(qr)
+        res.status(200).json({ status: 200, data: users })
+    } catch (err) {
+        res.status(500).json({ status: 500, message: err.toString() })
+    }
+})
+
 app.get('/users/stories', auth, async function (req, res) {
     try {
         const stories = await User.stories()
