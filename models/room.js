@@ -1,10 +1,5 @@
 const db = require('../database')
 
-const Room = {
-    list: getList,
-    detail: getDetail
-};
-
 const getList = async function (id) {
     const [rows, fields] = await db.query('select room.id as room_id, room.created_at, room.updated_at, room.last_message, user.id, user.full_name, user.avatar_url from room inner join user on room.owner_id = user.id and user.id = ' + id)
     const rs = rows.map(element => {
@@ -77,6 +72,12 @@ const getDetail = async function (id) {
         throw Error('Not found')
     }
 }
+
+
+const Room = {
+    list: getList,
+    detail: getDetail
+};
 
 module.exports = Room;
 
