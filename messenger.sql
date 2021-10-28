@@ -22,10 +22,25 @@ id int(11) primary key AUTO_INCREMENT,
 owner_id int(11),
 created_at timestamp default now(),
 last_message text,
-totalMember int,
+totalMember varchar(8),
 updated_at timestamp,
 foreign key (`owner_id`) references `user` (`id`)
 );
+
+DROP table IF EXISTS `group_user_room`;
+create table if not exists `group_user_room` (
+id int(11) primary key AUTO_INCREMENT,
+room_id int(11),
+user_id int(11),
+is_owner boolean,
+created_at timestamp default now(),
+updated_at timestamp default now(),
+foreign key (`room_id`) references `room` (`id`),
+foreign key (`user_id`) references `user` (`id`) 
+);
+
+
+ALTER TABLE room MODIFY totalMember varchar(8);
 
 DROP table IF EXISTS `room_detail`;
 create table if not exists `room_detail` (
