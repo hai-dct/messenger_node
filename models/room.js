@@ -5,7 +5,8 @@ const getList = async function (id) {
     select room.id as room_id, room.created_at, room.updated_at, room.last_message, 
     user.id, user.full_name, user.avatar_url, user.email, 
     user.created_at as user_created_at, user.updated_at as user_updated_at, user.is_active, user.token
-    from room inner join user on room.owner_id = user.id and user.id = ` + id)
+    from room inner join user on room.owner_id = user.id and user.id = ? 
+    ORDER BY updated_at DESC`, [id])
     const rs = rows.map(element => {
         var user = {
             id: element.id,
@@ -35,7 +36,7 @@ const getDetail = async function (id) {
     from room_detail 
     left join user on room_detail.user_id = user.id
     left join comment_photos on room_detail.id = comment_photos.room_detail_id 
-    where room_detail.room_id = ${id}`)
+    where room_detail.room_id = ${id} ORDER BY id DESC`)
 
 
     const arr = []
@@ -82,7 +83,7 @@ const getDetail = async function (id) {
         })
         return { id: room.id, room_id: room.room_id, comments: rs }
     } else {
-        throw Error('Not found')
+        return { id: 0, room_id: Number(id), comments: [] }
     }
 }
 

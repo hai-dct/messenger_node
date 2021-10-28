@@ -65,6 +65,7 @@ Create procedure createComment(room_id int, user_id int, newComment text)
 	Begin
 		insert into room_detail(room_id, user_id, comment) 
 		values (room_id, user_id, newComment);
+		select LAST_INSERT_ID() as insert_id;
 	End; $$
 DELIMITER;
 

@@ -100,9 +100,9 @@ app.get('/rooms/:id', auth, async function (req, res) {
 })
 
 app.post('/comments/post', auth, async function (req, res) {
-    const { room_id, comment } = req.body
+    const { room_id, comment, photos } = req.body
     try {
-        await Comment.post(room_id, req.user.id, comment)
+        await Comment.post(room_id, req.user.id, comment, photos)
         res.status(200).json({ status: 200 })
     } catch (err) {
         res.status(500).json({ status: 500, message: err.toString() })
