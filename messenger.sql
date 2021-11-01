@@ -32,7 +32,7 @@ create table if not exists `group_user_room` (
 id int(11) primary key AUTO_INCREMENT,
 room_id int(11),
 user_id int(11),
-is_owner boolean,
+is_owner boolean default false,
 created_at timestamp default now(),
 updated_at timestamp default now(),
 foreign key (`room_id`) references `room` (`id`),
@@ -135,3 +135,5 @@ Update user Set avatar_url='https://cdn.jpegmini.com/user/images/slider_puffin_b
 Update user Set avatar_url='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC2yLsax2357l_Sli3jpe-kg1mdyJV9A3JjA&usqp=CAU' Where id = 25;
 Update user Set avatar_url='https://media.istockphoto.com/photos/colored-powder-explosion-on-black-background-picture-id1057506940?k=20&m=1057506940&s=612x612&w=0&h=3j5EA6YFVg3q-laNqTGtLxfCKVR3_o6gcVZZseNaWGk=' Where id = 35;
 Update user Set avatar_url='https://static.addtoany.com/images/dracaena-cinnabari.jpg' Where id = 45;
+
+

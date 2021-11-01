@@ -62,6 +62,15 @@ app.get('/users', auth, async function (req, res) {
     }
 })
 
+app.get('/users/:id', auth, async function (req, res) {
+    try {
+        const user = await User.single(req.params.id)
+        res.status(200).json({ status: 200, data: user })
+    } catch (err) {
+        res.status(500).json({ status: 500, message: err.toString() })
+    }
+})
+
 app.get('/users/search', auth, async function (req, res) {
     const qr = req.query.query
     try {

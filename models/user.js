@@ -63,6 +63,11 @@ const getAllUser = async function () {
     return users
 }
 
+const getUserById = async function (id) {
+    const [users, fields] = await db.query('select * from user where id = ?', [id])
+    return users
+}
+
 const searchUsers = async function (query) {
     const [users, fields] = await db.query('select * from user where full_name like CONCAT(\'%\', ?, \'%\')', [query])
     return users;
@@ -74,7 +79,8 @@ const User = {
     all: getAllUser,
     token: getToken,
     stories: getStories,
-    search: searchUsers
+    search: searchUsers,
+    single: getUserById
 };
 
 module.exports = User;
