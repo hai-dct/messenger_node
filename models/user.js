@@ -65,7 +65,10 @@ const getAllUser = async function () {
 
 const getUserById = async function (id) {
     const [users, fields] = await db.query('select * from user where id = ?', [id])
-    return users
+    if (users.length > 0) {
+        return users[0]
+    }
+    return null
 }
 
 const searchUsers = async function (query) {
