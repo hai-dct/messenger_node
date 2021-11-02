@@ -62,7 +62,7 @@ app.get('/users', auth, async function (req, res) {
     }
 })
 
-app.get('/users/:id', auth, async function (req, res) {
+app.get('/user/:id', auth, async function (req, res) {
     try {
         const user = await User.single(req.params.id)
         res.status(200).json({ status: 200, data: user })
