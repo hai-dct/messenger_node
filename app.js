@@ -81,7 +81,7 @@ app.get('/users/search', auth, async function (req, res) {
     }
 })
 
-app.get('/users/stories', auth, async function (req, res) {
+app.get('/stories', auth, async function (req, res) {
     try {
         const stories = await User.stories()
         res.status(200).json({ status: 200, data: stories })
